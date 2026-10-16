@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Night Sign-Ups</title>
+    <style>
+        :root {
+            --bg-dark: #07090e;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-border: rgba(168, 85, 247, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #ec4899 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Navigation / Back Link */
+        .back-link {
+            display: inline-block;
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 24px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #ec4899;
+            text-decoration: underline;
+        }
+
+        /* Sign-Up Section Styling */
+        .signup-section {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .signup-section h2 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .signup-section p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-gradient);
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.6);
+            filter: brightness(1.1);
+        }
+
+        /* Info Grid Styling */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .info-box h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #a78bfa;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        /* Form Modal Overlay */
+        .form-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-modal-container {
+            position: relative;
+            background: #0f131d;
+            border: 1px solid var(--card-hover-border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 700px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.3);
+            overflow: hidden;
+        }
+
+        .form-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .form-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+        .close-modal-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .close-modal-btn:hover {
+            background: rgba(236, 72, 153, 0.4);
+        }
+
+        .form-iframe-container {
+            width: 100%;
+            flex-grow: 1;
+            overflow-y: auto;
+            background: #ffffff;
+        }
+
+        .form-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        .form-iframe-container iframe.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="webpage.html" class="back-link">← Back to Main Events Schedule</a>
+
+        <div class="signup-section">
+            <h2>Concert night sign ups</h2>
+            <p>Want to perform on stage? Pick your category below to sign up:</p>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="openForm('band')">Band Sign-Up</button>
+                <button class="btn" onclick="openForm('openmic')">Open Mic Sign-Up</button>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>Event Location</h3>
+                <p>688 N 500 E<br>Provo, UT 84606</p>
+            </div>
+            <div class="info-box">
+                <h3>Parking (In front of LSB)</h3>
+                <p>550 E 800 N<br>Provo, UT 84604</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-modal-overlay" id="formModal">
+        <div class="form-modal-container">
+            <div class="form-modal-header">
+                <div class="form-tabs">
+                    <button class="tab-btn" id="tab-band" onclick="switchTab('band')">Band</button>
+                    <button class="tab-btn" id="tab-openmic" onclick="switchTab('openmic')">Open Mic</button>
+                </div>
+                <button class="close-modal-btn" onclick="closeForm()">&times;</button>
+            </div>
+            <div class="form-iframe-container">
+                <iframe id="iframe-band" src="https://docs.google.com/forms/d/e/1FAIpQLSdssuqZgjSETVhLYLQyCj33wBBLv0jfe3eVmEmHhtOBNrLSqw/viewform?embedded=true">Loading…</iframe>
+                <iframe id="iframe-openmic" src="https://docs.google.com/forms/d/e/1FAIpQLSdjAoS9IpgHwi3PbAaOkYsmTGjLXxiPIutP_e9neKQ8Vx2WVg/viewform?embedded=true">Loading…</iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openForm(type) {
+            document.getElementById('formModal').style.display = 'flex';
+            switchTab(type);
+        }
+
+        function closeForm() {
+            document.getElementById('formModal').style.display = 'none';
+        }
+
+        function switchTab(type) {
+            const types = ['band', 'openmic'];
+            types.forEach(t => {
+                const iframe = document.getElementById(`iframe-${t}`);
+                const tab = document.getElementById(`tab-${t}`);
+                if (t === type) {
+                    iframe.classList.add('active');
+                    tab.classList.add('active');
+                } else {
+                    iframe.classList.remove('active');
+                    tab.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('formModal');
+            if (event.target === modal) {
+                closeForm();
+            }
+        });
+    </script>
+</body>
+</html>

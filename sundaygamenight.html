@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunday Game Night</title>
+    <style>
+        :root {
+            --bg-dark: #07090e;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-border: rgba(168, 85, 247, 0.4);
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #ec4899 100%);
+            --accent-hover: linear-gradient(135deg, #9333ea 0%, #4f46e5 50%, #db2777 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 50px 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Spheres */
+        .ambient-glow {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            overflow: hidden; z-index: -1; pointer-events: none;
+        }
+        .glow-sphere-1 {
+            position: absolute; top: -10%; right: 10%; width: 550px; height: 550px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 70%);
+            filter: blur(90px);
+        }
+        .glow-sphere-2 {
+            position: absolute; bottom: -5%; left: 5%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            filter: blur(90px);
+        }
+
+        .container { max-width: 650px; margin: 0 auto; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .back-link:hover {
+            color: var(--text-main);
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateX(-4px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        header { text-align: center; margin-bottom: 40px; }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: rgba(168, 85, 247, 0.12);
+            color: #c084fc;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        h1 {
+            font-size: 2.8rem; font-weight: 800; margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        p.subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto; }
+
+        /* Fancy Info Cards */
+        .info-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .info-card:hover {
+            border-color: var(--card-hover-border);
+            transform: translateY(-2px);
+        }
+        .info-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 18px; }
+
+        /* Address & Location Blocks */
+        .location-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .location-block .icon {
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        .location-block strong {
+            display: block;
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .location-block span {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Interactive Game List */
+        .game-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 12px;
+        }
+        .game-list li {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 14px 18px;
+            border-radius: 14px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+        .game-list li:hover {
+            background: rgba(168, 85, 247, 0.06);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateX(4px);
+        }
+
+        /* Action Buttons */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-gradient);
+            color: #ffffff;
+            padding: 16px 28px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.5);
+            background: var(--accent-hover);
+        }
+
+        footer { text-align: center; margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.9rem; }
+        footer strong { color: var(--text-main); }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow">
+        <div class="glow-sphere-1"></div>
+        <div class="glow-sphere-2"></div>
+    </div>
+
+    <div class="container">
+        <a href="webpage.html" class="back-link">← Back to Main Page
+</a>
+
+        <header>
+            <span class="badge">Every Sunday</span>
+            <h1>Sunday Game Night</h1>
+            <p class="subtitle">Vibes, Mario Kart, card games, and board games every week. Come to meet friends or bring your own!</p>
+        </header>
+
+        <main>
+            <div class="info-card">
+                <h3>🎮 What We Usally Play</h3>
+                <p></p>
+                
+                <ul class="game-list">
+                    <li><span>🏎️</span> <strong>Mario Kart</strong></li>
+                    <li><span>🃏</span> <strong>Card Games</strong></li>
+                    <li><span>♟️</span> <strong>Board Games</strong></li>
+                    <li><span>🎉</span> <strong>Whatever you want to bring!</strong></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>📍 Location & Parking</h3>
+                
+                <div class="location-block">
+                    <span class="icon">🏠</span>
+                    <div>
+                        <strong>Address</strong>
+                        <span>688 N 500 E<br>Provo, UT 84606</span>
+                    </div>
+                </div>
+
+                <div class="location-block">
+                    <span class="icon">🚗</span>
+                    <div>
+                        <strong>Parking (In front of LSB)</strong>
+                        <span>550 E 800 N<br>Provo, UT 84604</span>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>💬 <strong>Have Questions?</strong> Message me on instagram! <strong>Miles__Baxter</strong></p>
+        </footer>
+    </div>
+
+</body>
+</html>

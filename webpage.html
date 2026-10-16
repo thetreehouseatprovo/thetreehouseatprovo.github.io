@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Events & Entertainment</title>
+    <style>
+        :root {
+            --bg-dark: #07090e;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-border: rgba(168, 85, 247, 0.4);
+            --accent-primary: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #ec4899 100%);
+            --instagram-gradient: linear-gradient(135deg, #f58529 0%, #dd2a7b 50%, #8134af 100%);
+            --accent-glow: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(99, 102, 241, 0.4));
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-sphere-1 {
+            position: absolute;
+            top: -10%;
+            left: 20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(80px);
+        }
+
+        .glow-sphere-2 {
+            position: absolute;
+            bottom: -10%;
+            right: 15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(100px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            margin-bottom: 35px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-banner {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.9);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 9, 14, 0) 0%, rgba(7, 9, 14, 0.8) 75%, var(--bg-dark) 100%);
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 620px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Top Sign-Up Section */
+        .signup-section {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .signup-section h2 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .signup-section p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-gradient);
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.6);
+            filter: brightness(1.1);
+        }
+
+        /* Instagram Promo Callout Box */
+        .instagram-callout {
+            background: linear-gradient(135deg, rgba(245, 133, 41, 0.08), rgba(221, 42, 123, 0.08));
+            border: 1px solid rgba(221, 42, 123, 0.3);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 15px 30px -10px rgba(221, 42, 123, 0.15);
+        }
+
+        .instagram-callout-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #f8fafc;
+        }
+
+        .instagram-callout-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .btn-instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--instagram-gradient);
+            color: #ffffff;
+            padding: 14px 26px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(221, 42, 123, 0.4);
+            white-space: nowrap;
+        }
+
+        .btn-instagram:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(221, 42, 123, 0.6);
+            filter: brightness(1.1);
+        }
+
+        /* Form Modal Overlay */
+        .form-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-modal-container {
+            position: relative;
+            background: #0f131d;
+            border: 1px solid var(--card-hover-border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.3);
+            overflow: hidden;
+        }
+
+        .form-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .form-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+        .close-modal-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .close-modal-btn:hover {
+            background: rgba(236, 72, 153, 0.4);
+        }
+
+        .form-iframe-container {
+            width: 100%;
+            flex-grow: 1;
+            overflow-y: auto;
+            background: #ffffff;
+        }
+
+        .form-iframe-container iframe {
+            width: 100%;
+            border: none;
+            display: none;
+        }
+
+        .form-iframe-container iframe.active {
+            display: block;
+        }
+
+        /* Dynamic Upcoming Events Section Container */
+        .upcoming-container-wrapper {
+            margin-bottom: 45px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.25);
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .upcoming-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Enhanced Loading Card Visuals */
+        .loading-card {
+            background: var(--card-bg);
+            border: 1px dashed rgba(168, 85, 247, 0.4);
+            border-radius: 20px;
+            padding: 30px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top: 3px solid #a855f7;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #a78bfa;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .upcoming-item-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-hover-border);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 15px 25px -10px rgba(139, 92, 246, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+        }
+
+        .upcoming-item-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 8px 0 6px 0;
+            color: var(--text-main);
+        }
+
+        .upcoming-item-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Schedule Grid Layout */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-hover-border);
+            box-shadow: 0 20px 30px -10px rgba(139, 92, 246, 0.25);
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .event-content {
+            padding: 26px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge {
+            align-self: flex-start;
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: rgba(139, 92, 246, 0.12);
+            color: #a78bfa;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 14px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .event-card h4 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .event-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 1.05rem;
+            margin-bottom: 24px;
+        }
+
+        .contact-info strong {
+            color: var(--text-main);
+        }
+
+        footer a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: #ec4899;
+            text-decoration: underline;
+        }
+
+        .dropbox-note {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.08));
+            border: 1px dashed rgba(168, 85, 247, 0.35);
+            padding: 18px 28px;
+            border-radius: 16px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .dropbox-note p {
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow">
+        <div class="glow-sphere-1"></div>
+        <div class="glow-sphere-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="hero-card">
+                <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_ExH5lo_yf4-oPvmXVJPzb6u0gJLqOAuRqvd01vGmErZS-WRBmXX-Q8ZGTE3hpZ0OTIhaaVFfPImvDpdzT6z5s3xo3wWSHEZpa6XAAyHgYneN_QXeYmQJV-wRlix_WNdnl-aouhrLzjwycdh774Y-xamSgGiESCVn2LWjHogn140PIALo15lqlq7aH1Ih5xc-cblHHoSJj90BuTRlFo4uDRpkmEwE21vbhOnmlo8MF92d_2G_UT0HjjAx3GrmhmPn0PXqQzFvORBNhP57byIz0g9crDUbC0SxXiuWt9dYjwAvacyks0r8Zw0v0PdCBjjYV8_T2RXmUcB5Rl-rcWtOVOmh6yJUYF--a9O3lYsaI3jsV6pASgfO6HaG7aLM_1pk04WIxB0JZ8dg0fszoOZPYEng5fQlcix2_4FY6A7zx8kIgHkodw5n_TEie9FVlsqo-o92hpFAyuKtAUsfS0Xza25dMNYEywgZOle-KFHwSaH8wxg8KNnEOTa2HZILuROYxwizbNMsmUcYQJKZxlRs_G1yjPLNRXuBCoYIU9bGvm5TWesXrtp1pRBLaDP69Tr4pkVDeszH3a8dHRewot72a3sFN0HWFPMhQ6yfkcDLn31jAUcCHmmyQRPdfvs5lfrELpIuLdCy6ghvi_Mf3PTL4X1qvrsLB0YGf9C_hLWZLASMh0xyATHL2LCOL2o9zvosubqAhr_9VtNxX3KrLnyuKboFaoheTV1qlg5H8HZ6jxea83PBEDrOXnCVkKfhFloX-VvyOug0GoQN_1knHxVxWx1rJPEoXl2FA1OWHg9kC-dRrATRrdssA7g5FxawBWwlHp2aBC9ZpsL0CYUzZKD2ab0mpnmQ8NuBGVhptimbsIuOfieGe5PFOIKjreaEcYoAvbze8Wil9wXskvOL67VgN8lrkgb7sClnjyO2Kk50426YnRAn45p9u8vbdl2rFMxOnXmY9qv8hWkD75Eg7EUt99kpmUcDXX-k7LJD162LxxA3gGrqXU9PzOKmxNFnijxVYrGm7kMmHdWAnwgMuGwAZaWZypG_yzZHSiiTUxvIvpvLuEs9QxeKSgZ4Tka4eBYdOYdXDJjvDOz6rDwL61AodvIxwqJQqo8CAlmNN2_EemheABtmLEQ7mg5sG8C5YaAuCjM6Zrqqq4iN7WsZqatqcCN52-GN0qq9rBor8wGw=w1920-h868?auditContext=forDisplay" alt="Event Header Banner" class="hero-banner">
+                <div class="hero-overlay"></div>
+            </div>
+        </header>
+
+        <main>
+            <div class="signup-section">
+                <h2>Concert night sign ups</h2>
+                <p>Want to perform on stage? Pick your category below to sign up:</p>
+                
+                <div class="btn-group">
+                    <button class="btn" onclick="openForm('band')">Band Sign-Up</button>
+                    <button class="btn" onclick="openForm('openmic')">Open Mic Sign-Up</button>
+                </div>
+            </div>
+
+            <!-- Instagram Highlight / Callout Section -->
+            <div class="instagram-callout">
+                <div class="instagram-callout-text">
+                    <h3>Catch the Vibe on Instagram</h3>
+                    <p>See live clips, photo highlights, and updates from past event nights!</p>
+                </div>
+                <a href="https://www.instagram.com/TheTreeHouseAtProvo/#" target="_blank" class="btn-instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    Follow @TheTreeHouseAtProvo
+                </a>
+            </div>
+                 <div class="header-container" style="text-align: center;">
+    <h1>Tree House Events</h1>
+    <p class="subtitle">Good music, Good nights, Good memories.</p>
+</div>
+            <!-- Embedded Form Pop-up Overlay -->
+            <div class="form-modal-overlay" id="formModal">
+                <div class="form-modal-container">
+                    <div class="form-modal-header">
+                        <div class="form-tabs">
+                            <button class="tab-btn" id="tab-band" onclick="switchTab('band')">Band</button>
+                            <button class="tab-btn" id="tab-openmic" onclick="switchTab('openmic')">Open Mic</button>
+                        </div>
+                        <button class="close-modal-btn" onclick="closeForm()">&times;</button>
+                    </div>
+                    <div class="form-iframe-container">
+                        <iframe id="iframe-band" src="https://docs.google.com/forms/d/e/1FAIpQLSdssuqZgjSETVhLYLQyCj33wBBLv0jfe3eVmEmHhtOBNrLSqw/viewform?embedded=true" height="1650">Loading…</iframe>
+                        <iframe id="iframe-openmic" src="https://docs.google.com/forms/d/e/1FAIpQLSdjAoS9IpgHwi3PbAaOkYsmTGjLXxiPIutP_e9neKQ8Vx2WVg/viewform?embedded=true" height="903">Loading…</iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upcoming-container-wrapper" id="upcoming-wrapper">
+                <div class="section-header">
+                    <h3 class="section-title">Upcoming Schedule & Events</h3>
+                    <p class="section-subtitle">Click on info tabs at bottom of page for details</p>
+                </div>
+                <div class="upcoming-list-grid" id="upcoming-list">
+                    <div class="loading-card">
+                        <div class="spinner"></div>
+                        <span class="loading-text">Loading upcoming events...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-grid">
+                <a href="Party.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="event-card">
+                        <div class="image-wrapper">
+                            <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_HidAlqBP_HU0siYWnBxHFV2HwvqpBiUkWD6aFOjDPLZYRdDhBJWo75fMYHizf2sO8Iwl0deOwKKtX0IQcCVjbNGaOdxLuFVE2yVFu2V0ci0qaf-p3chpjoP0p7eIUOwZ06ysfeiq-fRU-kMKOqRPaWYLG0Rfsri2_sIBboFUHrzhNPe3zYihedZQyGVp4o6iJcN6VNwCcf-etK7H2SgnE0za9dnBusFzhyvbdAiWNeHdYPwiICEQuww0b4t6D_doHbDcXskRtvZnXpOSFni5zC1iC50DZ67Krm_Hg9LOd7QVIYl86IMOwTfmD7l54fehgGEobOKRSwA2_AXi7K33BudETmX-hTJMkfBhdwYehDBkDc6iXaZ94134IpYnoiQWofqrGe-lTxWjicae4rvTksWBY03KRx02XIwX4yP0E5BWOKsIEAtSI7Ndvy7LEzuUsgXV_32PdcZsDHmdYm2TfzeO5Lb1H0fq4L6Z1yeK3sq9fPbNZHqXwsWr3hAn6VHEXECNB7uj4EX-Hln6QreuhyFWKUpkVQoAWsepxor0_FG4vxZXEn7__JVpRHBEbZU-u5fdwVyNq9lRyjNQqvwuxZfhqbs5W0aqGP1M3p-bWe0fzYd5FgjLU8eFj8PWuLGVXW89hV7i9NNbSwGMvInhUgSUuU-H9JX2mCC3-YSXLYiM3RZiJq6fRBIPbZwk19jTlcjWjfyi5OkRma3QsWrweRloAR2ETZ4wrkqg2apPYwEmOw0ZBFYVO1R4oDk5zXiNz1AGI-GiV6psfZAh5rSavf4NKcPUzBtY6Ts1GxGHFrdiANrXtTR0dI6fJ5XGjoXLqYM-NBVi3pO72sHngRpA-L3NxvxT0K46cCm9egn1-lTdVogw8_OTmqS4do8DkO3YRwpiR4D2O-MRsgLJJtAG7-h1piti34tguvAFXynUdM3XYvDTrGITUPwJNCuMsDFf3h-wr9TR3vx1unZBKqBIGGKVVdgwG0xB2D7R60w7rbVzOvAjIscQFzmwj2dnygAEGB2RVTQiMwvJrwmOkqJnr0lQABu6y3Gt21aHmr9RspvCuGxHgg-p17tb8KEfNO1vHab8Y_V9yVOJHiT4GqnB1UmTMhQqvJppqw4_7ll7PDKxcS4kzsw1Wc9ypBdhUdWxkg8ZEh_yslcw=w1183-h868?auditContext=prefetch" alt="Party">
+                        </div>
+                        <div class="event-content">
+                            <h4>Party</h4>
+                            <p>Games, snacks, and music for everyone in the neighborhood!</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="Concert-Nights.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="event-card">
+                        <div class="image-wrapper">
+                            <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_GfDo2nwpoDw9K1lyBm7ZSAObJ5COrORL3upyKwnRdYp3uhQi3NHEILSZ3evqCZjUIHBfWiCKLUXaNKCh7xmPA3lxDepJU6jsTeO426vmnrkAB8nCgPIx8VK3dpXH3VvSl_OD8RH_fgoZ_-Syi02V5ym5ZzvkyaMvynD954FTuB2Le2uwKV7aAN8vvWSRLfG6dsGeFDity5w7UJruLS280B_Qyz8YBKGRozhHGZERLTmpDmVyNz-wgHgjoQ3O49fQQaexMk42XehBKkkkorLdAw6mEjBxwEuCl6mfY72a7YO3zS5qxVey8XX6YTP1yVESHcCjoBS2xESVp7neSyjZJXHqfyan4cablEissOLkZsm89seCwyP6GkwnpG1dIAbk5rdz5L73XV9X6s1UUK2JH043O38taqwINZeY6tZ36ZwgSGphsl9Cd_S52FILBupT2dIys5AAWIc9fHtcMYovn7qShfYGZSxSS5Y3-YQmA89RnaZDKTcT4gLlLQ0q2cQspnYKOyvvZmfRZp3KeOBARM7wErDyBFdqLiFFNdfdBDt3t4Bk2AvqD_b95RhxU-gRyZlDZHlTP8E2kQeOoqSTeJJAMFOw3b1ofgpPhj9Ic0DXga-cL_RpGzwlr9ClOK1o-_ymD0NGjtUI91vO4nhuj6L7-eDtEflKG9aHTXRP-654Z516O7vBHCXlvJjUzqZpeFc9mVKhoymzLsS6xksiTcj9RAkJZY2mBZ9gkVes4RNglgvzyx7fUFXZEzAVIVEOiN2b-Xxj9vofhYcMqY6gig7soz0B-PldN3wuQk1Gs3AwYOxjA_ftwbWoz-tZeYQ6bhR0GQJDFLFX9F5SOvQYLXC6vNI5ZT2UHn4bFySxl_IyNvtNkzBdk2JsKeETlMkj4JZVx2_WZHSCgJo1TB6kxCJqngVCWT5M4Yb3v67iQpPrO7vIfAS-iipxW7MDlvnQXIZeOBe06yiWvoahi6_1MkWM3uoNgxlb29Om4MuvbG1hn6qEFE3tJKAbZ6I6jq0VgV8jXZ_XDpIipv4q8aUjHgMxWS2JPyrddZb3PxFB7rOhq2YE0zCoT-i4gSKH4MhJoVgnOfylzKR1S--WtKRYVbBs5eUoiJ1p7iZCI4p_TKiIlc99DKkAT6c4XxBX8RAhKRACnaSKDCBw=w1437-h859?auditContext=prefetch" alt="Concert Nights">
+                        </div>
+                        <div class="event-content">
+                            <h4>Concert Nights</h4>
+                            <p>Live band performances, with open stages.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="service_day.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="event-card">
+                        <div class="image-wrapper">
+                            <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_GNVS1SIqPItpZusyVoL8o3DpAWsg1KGWsp7wPT-GkIxNogMl09cgrN2ASBzi8IPaFQcPEB1lr2iZKEmKqPgxLhyJWb5-JkZWzvFa90uCFegdDCYNlmzEwlw4sb0pcUG_gR3nu4SUr58ccGX0IWnNQf231gIRBL40TrFJ8Ds5ZgOF2J-GTP35_vJFo-stzsPlytO-i1KQGgbwZmVpEpMGHlmCIpgOgnEXTclj2C8cn-2ZNRBhvLQm7DYcoPbRahuveV8pf77U1HOFu78idVBFLKdyGl_SOdQYbkWgSg-WjWqAbAjRQ5SwbXSgbHc31Gfd3Jm_prXXlTeD8OxEQuYoDm5yoeBVIOOV1MXuBUnKYuh9SWh3ZmOBVat9cHmqBXpw4Kp-mVNvanq6T_f8MtLRWfEesu_Zqe1p9PkA_aaQ3ldfO7pw0hpCDmgvtXVEEQOH1Z1wD_NQ-TX7IHksJcWF93sPsMkxHJLceLLBBnARVhluzP0dgMAy1CPnBs-XWZUr0hyItB54NAE-6tk-kO7xyaAe4MI2tdWAaYLi_kzcr9PPzP6ufezgamhyE4mklQRVEMkL7zuNlFNsz-SI9xkfyfzoq8Ui8C-i-q-n6gPSJpiJv7y8OyF_khI2vj2lz7-BnQIULddrP0NqSkHdFDSQU_CkMFSg6rzRuB8Tik47fEgu-V_L-yllZ-MncbA3lX9GYFvS_7xbNFzACJYQz4ozKw4NyzDBT_VxFYzBGdt5r0iFKT_DE9M0EOD-Lv67lSgkyWsYZ1tPeQ3iY9RDuz6nUwACHByGDuROFsRxl7j2dHsMDf1VA61ke7k76z5XzO8QwDnAnIzC1IazZNcR0yhjQiwtvux0M0gK-zzx-fgAVa67KRS5dKcvkehvUtrAM6wfA0llM08p-pmFesHoBlf3yGbXlpYU1wGkVk7aF-va3p0ZmAHSog31KpEZXXcuwKh3vtmrk8HMPQI9dGL4PoPxVT4bZrA6hHEdTAsj60pG4-UIjFjNZ77FZrzKZkakxDW122CC8cwKVBNBqSjzOTcbO_9kX04oLcLByJrupqYStL_57AbmKkos1gKC7iqOLuga7d64DH3_CIJefjEFvaUQfeQWrmFE-Jd2Q0fk623WbobRBlN-lz5uxfFz2wAn8N3MAwOPQKdJL9OQ=w958-h868?auditContext=prefetch" alt="Service Day">
+                        </div>
+                        <div class="event-content">
+                            <span class="badge">Every Saturday</span>
+                            <h4>Service Day</h4>
+                            <p>Community projects, neighborhood cleanup, and service activities.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="sundaygamenight.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="event-card">
+                        <div class="image-wrapper">
+                            <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_FdzrewjVmCLRzrUNfeFC3FwpiKuhdfHyoq-3Bw90qGw5F9-TGRSx_UIgUrnUrnoG3FtSo3gk5Vic1PP8DmbtWDzog6SnNSVLrx_06NXotK8VomFP1-ztojXUYNgCfdoWHx0r5w3jFhVtJd1zjBWeihBhvwC3cmbzXL8cueLwIqcTKYS9O5Vz889g_nRNPoEjLjTk7HFw8w_qLijU05dQzjNAnZ9t5KhswtbJfDKmvWtVcM7FPJoJFCMvpMhaBoDzik2-ohKS9gyOZu72i5YZkbYAqJKN-AUNJhRGQgKgJktwhYoWHSNfF_zuD71oCz1aV1WUlPY_dnp8D1oRNHz9fMuYDlS0g5tgxfkoofh5CEaqced9dLTmSke1oD9NjkboDc3GLMyQ86RPCdXZTgw5XUuwPmGe-c2Ns_zFa2qUgGsw95Z2a08qxa6ZJtHx_SGz--zgQYdo-6NO0_dI-xNGc-rjJLnXYjlTeC4JaKzLZOI7-Wbx6_LlvX8hLeshPiJ2xWrOYN1JH4CNS0aFncAsnFh2DWAQsv1xJa66iHgUmazCQg8ZPrh1YEHlLcr5tBNpP5-GvQ0B4ObLghWUh6P3KfVaeiNpqqsZr-y7Xyw0-8p-UBcCXSIQSUibdj10u7RGWLIiOyeFZBqpp1Lt766fe_wan3pjv7rvqJv6Op9ndWEDkkiD88ku09Ie2GXU6jEeHYJADUXIWqvrO8-j6EvWoQBwtBmIXDWhEWMSuImZQ0k834BSBCnInJUh8Ahmn75Hc1AX0SSjeCnIkFB1gtRiCWxTrJks8tVB7muKbplV8tK9Auurvr79zJV30_TUEZUA_DHmeUUHgLS8VPl-LojX0BYDUHuXLuq1VP9JChh5Ntqtq6E5ytl1u6qH4_0hD9dep0_Y7ConQJA98eXep9nSt8k8DQxxUM9ZJB9CPiZep6r1VBFhrkOG1gxTYanEFCdxLygL250SYrpGX7TveWpaoRELAeiPda6ENH48aVjr2wBh9rDHQzTY7f6_RzBI5C4Jyj2SrVb4kzTmagNVDCD0sQsRG_XO0SYASqZoCvNgG2fzbeBB55m5sTuz4NrmBMrXQPlEWIr3iHSFNUsyG3r57WLz-wKfyFtBWvt9pTuFBikU7C5oIcavsyljlF331Sx_mGprpF38lFGg=w1920-h868?auditContext=forDisplay" alt="Every Sunday Game Night">
+                        </div>
+                        <div class="event-content">
+                            <span class="badge">Every Sunday</span>
+                            <h4>Sunday Game Night</h4>
+                            <p>Board games, card games, and multiplayer console setups.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="me.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="event-card">
+                        <div class="image-wrapper">
+                            <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_FEXRzkSvqWTxWyRSbf8otBzmcYVObmqGIU5xzF-YtTfuUT8-ydtbAzbxeIb8HAQWC_opGJgt5mlYcL0M2iI2Js66DVeqStNEIqN3mPwn65r-70ukvcaKbRO80vBNJ6IpKVIpILhfvKgbpY-PFi_GDEfL3YRZv9ztx2fx0t6eABMOS_SNF1g63og9TwAgC2A9G9nkKUCHheWyUWZiy5nzMaWy5CLd9xEIcAJM-gn0LipLA5u5EldSwzMilJfAdr6dCTXNcZ53xMCPVzUrxo2wJsjjwkYfap_0SbGqTZrxa0b9HQWGRNlMrKgV01I9sFHwMFw-H4bkrSt3tqYKZXv4iM3o2CrJeE33TSj0sr2r7Leylnx3gCt5_5VIixmJeZsoNahxe1hqVsFmYNPlgxaEKXJvL_sNa5HYWureSrjrq6b_V39kfYpSlL37cWu8X1EXexXax43GSzF-bxiTpniZDP5lHoey8BH1prT5C9uYAcBqU_IvTxRUbZWNimJ5aozsgPQN2gzEtHtEEqy-mCsnbkD6oNkKdGKml9Tik9vmFbKuv70Qs2rJOL0WUa1pMYUPDA5WYHSsQsQI93IW1jJGyzbz4frVKtlXjsIuIdRF1HmDygmXzYCAUsUfJXHRtR41OjeZEyU9s-p9Z4ExF5DsF-Gg4l5mOAhNgaN3-jRdPSCMefnBR05yyVQnvb6H1fYjZD3NGkIFk8DjkEBpDDd8HjGMNYvnVET7w6XMcDG1c92CxCHkgX2IG-wbRvKelmz20f5lXm93e5M86KxvUj2rxs_jkGCIT2QNsD_WBT9sRmg0pmoy7IMSON7RsKWArsa06E5O3LXL9r5ekdzeDQjIAdS03AtkKmFB9djeK-7owjGHtcx9ygBcYTTHkXBhq3r5GYMi_-zwS4VN3IYbpfNbQNOZd-FilainrrTTNg2pUi_DEE_G1SZaTdim0bC-Vl01P5TdIdvgpLZDFrfvPHsTyU75T33qTAnrRj2v134wX_Pl7O8ewflWSS4xVTFRt0rPADjulpoMr6wtfQernXM755VbIxYwXxKUB00G9Vt5i_zdxRIsz2fXCe9FgXXGcBkjW1FSquvTKOIC-kzI4h0erR1G1S-xrtO6qHDk1yH8OcFVWoYRdadDUj46T8Z2n5jpwacuivqzQ=w1463-h904?auditContext=prefetch" alt="Me">
+                        </div>
+                        <div class="event-content">
+                            <span class="badge">About</span>
+                            <h4>Me</h4>
+                            <p>About me, contact info, and connections for stuff.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </main>
+
+        <footer>
+            <div class="contact-info">
+                <p>Instagram: <a href="https://www.instagram.com/TheTreeHouseAtProvo/#" target="_blank">@TheTreeHouseAtProvo</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz-MVbEKOixXvHxcqZCfgEfyaKg3C3sYwlKzh0JCV9RnBfF1wYL__YjdyzsDVVaoTv2/exec';
+
+        fetch(scriptURL)
+            .then(response => response.json())
+            .then(data => {
+                const listContainer = document.getElementById('upcoming-list');
+                listContainer.innerHTML = ''; 
+
+                if (data && data.length > 0) {
+                    data.forEach(event => {
+                        const card = document.createElement('div');
+                        card.className = 'upcoming-item-card';
+                        
+                        card.innerHTML = `
+                            <div>
+                                <span class="badge">${event.date}</span>
+                                <h4>${event.name}</h4>
+                            </div>
+                            <div>
+                                <p style="margin-top: 12px;"> ${event.time}</p>
+                            </div>
+                        `;
+                        
+                        listContainer.appendChild(card);
+                    });
+                } else {
+                    listContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 1rem;">No upcoming events scheduled at this time.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching upcoming events:', error);
+                document.getElementById('upcoming-list').innerHTML = 
+                    '<p style="color: var(--text-muted); font-size: 1rem;">Unable to load events right now.</p>';
+            });
+
+        /* Modal & Form Switching Logic */
+        function openForm(type) {
+            document.getElementById('formModal').style.display = 'flex';
+            switchTab(type);
+        }
+
+        function closeForm() {
+            document.getElementById('formModal').style.display = 'none';
+        }
+
+        function switchTab(type) {
+            const types = ['band', 'openmic'];
+            types.forEach(t => {
+                const iframe = document.getElementById(`iframe-${t}`);
+                const tab = document.getElementById(`tab-${t}`);
+                if (t === type) {
+                    iframe.classList.add('active');
+                    tab.classList.add('active');
+                } else {
+                    iframe.classList.remove('active');
+                    tab.classList.remove('active');
+                }
+            });
+        }
+
+        // Close modal when clicking outside of the modal container
+        window.onclick = function(event) {
+            const modal = document.getElementById('formModal');
+            if (event.target === modal) {
+                closeForm();
+            }
+        };
+    </script>
+</body>
+</html>
