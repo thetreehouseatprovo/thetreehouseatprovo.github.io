@@ -240,6 +240,34 @@
         .form-iframe-container iframe.active {
             display: block;
         }
+
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 1.05rem;
+            margin-bottom: 24px;
+        }
+
+        footer a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: #ec4899;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -267,6 +295,12 @@
                 <p>550 E 800 N<br>Provo, UT 84604</p>
             </div>
         </div>
+
+        <footer>
+            <div class="contact-info">
+                <p>Have questions? Message us on Instagram: <a href="https://www.instagram.com/thetreehouseatprovo" target="_blank">@TheTreehouseAtProvo</a></p>
+            </div>
+        </footer>
     </div>
 
     <div class="form-modal-overlay" id="formModal">
