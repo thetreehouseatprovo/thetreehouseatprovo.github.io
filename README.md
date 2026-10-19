@@ -1,3 +1,4 @@
+![Treehouse Logo](images/treehouse-logo.jpg)
 # The Treehouse at Provo
 
 Welcome to the official website for The Treehouse at Provo. Here you can find information about our events, parties, and community activities.
