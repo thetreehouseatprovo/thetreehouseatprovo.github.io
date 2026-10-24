@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head><head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YTTVB14TM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7YTTVB14TM');
+    </script>
+    <!-- Other head tags like title or CSS links -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111116">
+  <meta name="description" content="Tree House is a Provo hangout for live music, parties, game nights, and community events.">
+  <link rel="icon" href="assets/treehouse-mark.svg" type="image/svg+xml">
+  <title>Tree House — Provo Events & Community</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner wrap">
+      <a class="brand" href="#top" aria-label="Tree House home">
+        <img src="assets/treehouse-logo.svg" alt="Tree House">
+        <span class="brand-caption">Events &<br>Community</span>
+      </a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="main-nav">Menu</button>
+      <nav id="main-nav" aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Home</a><a href="events.html">Events</a>
+        <a href="photos.html">Photos</a>
+        <a href="about.html">About</a>
+        <a href="suggestions.html">Suggestions</a><a class="nav-cta" href="concerts.html#performers">Get on Stage ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="kicker">Provo, Utah · Everyone’s invited</div>
+        <h1 id="hero-title">Find your<br><span>people.</span></h1>
+        <p>Live music, game nights, parties, and community events. Tree House is a place to hang out, try something new, and feel part of it.</p>
+        <div class="actions">
+          <a class="button" href="#events">Explore events <span aria-hidden="true">↓</span></a>
+          <a class="stage-cta" href="concerts.html#performers">Get on Stage ↗</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="assets/hero-treehouse-party.jpg" alt="Friends at a Tree House party with a hand-decorated Tree House pumpkin" fetchpriority="high">
+        <span class="photo-stamp">A good night at Tree House</span>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-inner">LIVE MUSIC <span>✳</span> GAME NIGHTS <span>✳</span> GOOD COMPANY <span>✳</span> PROVO, UTAH <span>✳</span> LIVE MUSIC <span>✳</span> GAME NIGHTS <span>✳</span> GOOD COMPANY</div>
+    </div>
+
+    <section class="section wrap" id="events">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Pick your kind of night</div>
+          <h2>What’s happening</h2>
+        </div>
+        <p>Come for the music, stay for the people. There are plenty of ways to make Tree House part of your week.</p>
+      </div>
+
+      <div class="event-grid">
+        <a class="event-card" href="parties.html">
+          <div class="event-photo"><img class="party-img" src="assets/party-night.jpg" alt="Friends enjoying a themed Tree House party" loading="lazy"></div>
+          <div class="event-label">Bring your crew</div>
+          <h3>Parties</h3>
+          <p>Games, snacks, and music for everyone in the neighborhood.</p>
+          <span class="card-link">Party details <span>↗</span></span>
+        </a>
+
+        <a class="event-card" href="concerts.html">
+          <div class="event-photo"><img class="concert-img" src="assets/concert.jpg" alt="A band playing live on the Tree House stage" loading="lazy"></div>
+          <div class="event-label">Live & local</div>
+          <h3>Concert Nights</h3>
+          <p>Live band performances and open stages in a welcoming room.</p>
+          <span class="card-link">Concert details &amp; sign-ups <span>↗</span></span>
+        </a>
+
+        <a class="event-card" href="service.html">
+          <div class="event-photo"><img class="service-img" src="assets/community-outdoors.jpg" alt="A Tree House group gathering outdoors around a fire pit" loading="lazy"></div>
+          <div class="event-label">Every Saturday</div>
+          <h3>Service Day</h3>
+          <p>Community projects, neighborhood cleanups, and ways to pitch in.</p>
+          <span class="card-link">Service details <span>↗</span></span>
+        </a>
+
+        <a class="event-card" href="game-nights.html">
+          <div class="event-photo"><img class="game-img" src="assets/game-night.jpg" alt="Friends gathered around a table for a game night" loading="lazy"></div>
+          <div class="event-label">Every Sunday</div>
+          <h3>Game Night</h3>
+          <p>Board games, card games, and multiplayer console setups.</p>
+          <span class="card-link">Game night details <span>↗</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section wrap" id="schedule" style="padding-top:0">
+      <div class="subpage-section" aria-labelledby="live-event-title">
+        <div class="event-label">Live from the events calendar</div>
+        <h2 id="live-event-title">What’s coming up</h2>
+        <p>New events appear here automatically.</p>
+        <div class="live-events" data-events-list="all" aria-live="polite"><p class="feed-status">Loading upcoming events…</p></div>
+        <div class="feed-refresh"><span>See Instagram for more updates.</span><button type="button" data-refresh-events>Refresh events</button></div>
+        <a class="card-link" href="events.html">See all events &amp; event categories <span>↗</span></a>
+      </div>
+      <div class="updates">
+        <div>
+          <div class="event-label">Upcoming dates & updates</div>
+          <h3>Keep up with what’s next.</h3>
+          <p>Event dates, details, and last-minute updates are posted on Instagram.</p>
+        </div>
+        <a class="button" href="https://www.instagram.com/TheTreeHouseAtProvo/" target="_blank" rel="noopener noreferrer">Follow Tree House ↗</a>
+      </div>
+    </section>
+
+    <section class="perform" id="perform">
+      <div class="perform-inner wrap">
+        <div>
+          <div class="kicker">Take the stage</div>
+          <h2>Bring your<br><span>thing.</span></h2>
+        </div>
+        <div class="perform-copy">
+          <p>Got a band, a song, or something you’ve been wanting to share? Sign up for a concert night or open mic. First-time performers are welcome.</p>
+          <a class="stage-cta" href="concerts.html#performers">Get on Stage ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery wrap" id="gallery">
+      <div class="section-head">
+        <div>
+          <div class="kicker">A few recent nights</div>
+          <h2>Good people, good memories.</h2>
+        </div>
+        <a class="card-link" href="photos.html">View all photos <span>↗</span></a>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="assets/gallery-stage.jpg" alt="The room fills up for a Tree House music night" loading="lazy"><span class="gallery-caption">When the music starts</span></div>
+        <div class="gallery-item"><img src="assets/gallery-game-night.jpg" alt="Friends settling in for a casual night together" loading="lazy"><span class="gallery-caption">Room for one more</span></div>
+        <div class="gallery-item"><img src="assets/gallery-outing.jpg" alt="Tree House friends on an outdoor group outing" loading="lazy"><span class="gallery-caption">Out of the house</span></div>
+      </div>
+    </section>
+
+    <section class="about wrap" id="about">
+      <div>
+        <div class="kicker">A little about us</div>
+        <h2>Made for<br>community.</h2>
+      </div>
+      <div class="about-copy">
+        <p>Tree House is a Provo hangout for people who want to spend time together—whether that means catching a live set, joining a game, meeting new people, or helping out on a service project.</p>
+        <p>Show up as you are. Bring a friend, or come meet someone new.</p>
+      </div>
+    </section>
+
+    <section class="instagram wrap">
+      <div>
+        <h3>See what’s happening at Tree House.</h3>
+        <p>Event announcements, photos, and updates from the community.</p>
+      </div>
+      <a class="button outline" href="https://www.instagram.com/TheTreeHouseAtProvo/" target="_blank" rel="noopener noreferrer">@TheTreeHouseAtProvo ↗</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner wrap">
+      <a class="brand" href="#top" aria-label="Tree House home"><img src="assets/treehouse-logo.svg" alt="Tree House"></a>
+      <div class="footer-links">
+        <a href="events.html">Events</a><a href="concerts.html#performers">Get on Stage</a><a href="photos.html">Photos</a><a href="about.html">About</a><a href="temple-trips.html">Temple trips</a><a href="volunteer.html">Volunteer</a><a href="suggestions.html">Suggestions</a>
+      </div>
+      <span>Provo, Utah</span>
+    </div>
+  </footer>
+
+  <script src="site.js" defer></script>
+</body>
+</html>
