@@ -106,9 +106,10 @@
     if (document.visibilityState === 'visible') refreshEvents();
   });
 
-  // Embedded Google Form dialog on Concerts & Open Stage.
+  // Embedded Google Form dialog.
   const modal = document.querySelector('#formModal');
-  const types = ['band', 'openmic'];
+  const types = ['band', 'host', 'openmic', 'vendor'];
+
   function switchForm(type) {
     const selected = types.includes(type) ? type : 'band';
     types.forEach(name => {
@@ -121,12 +122,14 @@
       }
     });
   }
+
   function closeForm() {
     if (!modal) return;
     modal.classList.remove('open');
     document.body.style.overflow = '';
     if (lastActiveElement) lastActiveElement.focus();
   }
+
   function openForm(type, trigger) {
     if (!modal) return;
     lastActiveElement = trigger || document.activeElement;
@@ -135,6 +138,7 @@
     document.body.style.overflow = 'hidden';
     modal.querySelector('[data-close-form]')?.focus();
   }
+
   document.querySelectorAll('[data-open-form]').forEach(button => button.addEventListener('click', () => openForm(button.dataset.openForm, button)));
   document.querySelectorAll('[data-form-tab]').forEach(button => button.addEventListener('click', () => switchForm(button.dataset.formTab)));
   modal?.querySelector('[data-close-form]')?.addEventListener('click', closeForm);
