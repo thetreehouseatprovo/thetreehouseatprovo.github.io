@@ -124,11 +124,30 @@
       <div class="perform-inner wrap">
         <div>
           <div class="kicker">Take the stage</div>
-          <h2>Bring your<br><span>thing.</span></h2>
+          <h2>Do your<br><span>thing.</span></h2>
         </div>
         <div class="perform-copy">
-          <p>Got a band, a song, or something you’ve been wanting to share? Sign up for a concert night or open mic. First-time performers are welcome.</p>
-          <a class="stage-cta" href="concerts.html#performers">Get on Stage ↗</a>
+          <p>Want to perform, host an event, or bring your business to Tree House? There are lots of ways to join in. First-time performers are welcome—choose any form that fits what you have in mind.</p>
+        </div>
+        <div class="perform-forms">
+          <button class="stage-cta" type="button" data-open-form="band">Band sign-up</button>
+          <button class="stage-cta" type="button" data-open-form="host">Host an event</button>
+          <button class="stage-cta" type="button" data-open-form="openmic">Open stage sign-up</button>
+          <button class="stage-cta" type="button" data-open-form="vendor">Vendor sign-up</button>
+        </div>
+      </div>
+      <div class="form-modal-overlay perform-form-modal" id="formModal" role="dialog" aria-modal="true" aria-labelledby="form-title">
+        <div class="form-modal-container">
+          <div class="form-modal-header">
+            <h2 id="form-title" data-form-title>Sign-up form</h2>
+            <button class="close-modal-btn" type="button" data-close-form aria-label="Close sign-up form">×</button>
+          </div>
+          <div class="form-iframe-container">
+            <iframe id="iframe-band" title="Band sign-up form" data-title="Band sign-up" src="https://docs.google.com/forms/d/e/1FAIpQLSdssuqZgjSETVhLYLQyCj33wBBLv0jfe3eVmEmHhtOBNrLSqw/viewform?embedded=true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe id="iframe-host" title="Host an event form" data-title="Host an event" src="https://docs.google.com/forms/d/e/1FAIpQLSfW4b8CzyzOOWXrw3tED2WNipr7mce6cNPvofWVCyL5RNGidA/viewform?embedded=true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe id="iframe-openmic" title="Open stage sign-up form" data-title="Open stage sign-up" src="https://docs.google.com/forms/d/e/1FAIpQLSdjAoS9IpgHwi3PbAaOkYsmTGjLXxiPIutP_e9neKQ8Vx2WVg/viewform?embedded=true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe id="iframe-vendor" title="Vendor sign-up form" data-title="Vendor sign-up" src="https://docs.google.com/forms/d/e/1FAIpQLSezPPUbTjZ8_chcZ6g0LTc6iu7iOo2gN13XMuOKz7Bdz9aHBQ/viewform?embedded=true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
         </div>
       </div>
     </section>
