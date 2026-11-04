@@ -38,17 +38,51 @@
     return node;
   }
 
+  const MONTH_SHORT = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  const MONTH_INDEX = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+
+  function parseEventDate(raw) {
+    const text = String(raw ?? '').trim();
+    if (!text) return null;
+    const weekdayMatch = text.match(/(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)/i);
+    const weekday = weekdayMatch ? weekdayMatch[1].slice(0, 3).toUpperCase() : '';
+    let month = null;
+    let day = null;
+    const slash = text.match(/(\d{1,2})\/(\d{1,2})(?:\/\d{2,4})?/);
+    const iso = text.match(/(\d{4})-(\d{2})-(\d{2})/);
+    const named = text.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(\d{1,2})/i);
+    if (slash) { month = parseInt(slash[1], 10) - 1; day = parseInt(slash[2], 10); }
+    else if (iso) { month = parseInt(iso[2], 10) - 1; day = parseInt(iso[3], 10); }
+    else if (named) { month = MONTH_INDEX[named[1].slice(0, 3).toLowerCase()]; day = parseInt(named[2], 10); }
+    if (month === null || day === null || month < 0 || month > 11 || day < 1 || day > 31) return null;
+    return { month: MONTH_SHORT[month], day, weekday };
+  }
+
   function formatEvent(event, filter) {
     const card = document.createElement('article');
     card.className = 'live-event';
     const title = String(event.name ?? event.title ?? 'Tree House event').trim();
     const date = String(event.date ?? '').trim();
     const time = String(event.time ?? '').trim();
-    const dateLine = [date, time].filter(Boolean).join(' · ') || 'Details coming soon';
-    addText(card, 'time', '', dateLine);
-    addText(card, 'h3', '', title);
+    const parsed = parseEventDate(date);
+    const badge = document.createElement('div');
+    badge.className = 'event-date';
+    if (parsed) {
+      addText(badge, 'span', 'event-date-month', parsed.month);
+      addText(badge, 'span', 'event-date-day', String(parsed.day));
+      if (parsed.weekday) addText(badge, 'span', 'event-date-weekday', parsed.weekday);
+    } else {
+      addText(badge, 'span', 'event-date-raw', date || 'TBA');
+    }
+    card.appendChild(badge);
+    const body = document.createElement('div');
+    body.className = 'event-body';
+    addText(body, 'h3', '', title);
+    if (!parsed && date && time) addText(body, 'p', 'event-time', date);
+    if (time) addText(body, 'p', 'event-time', time);
     const description = String(event.description ?? event.details ?? '').trim();
-    if (description) addText(card, 'p', '', description);
+    if (description) addText(body, 'p', 'event-desc', description);
+    card.appendChild(body);
     return card;
   }
 
