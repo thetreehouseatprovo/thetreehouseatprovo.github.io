@@ -452,3 +452,9 @@
 .updates::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); }
 .ig-button { white-space: normal; text-align: center; }
 .ig-button svg { flex: 0 0 auto; }
+
+/* --- Cards: poster as a left column, all text offset to its right --- */
+.live-event { flex-direction: row; align-items: stretch; }
+.event-main { display: flex; flex-direction: column; gap: 10px; flex: 1 1 auto; min-width: 0; }
+.event-thumb { flex: 0 0 auto; width: 112px; height: auto; min-height: 112px; margin: -18px 0 -18px -18px; object-fit: cover; border-radius: 13px 0 0 13px; }
+@media (max-width: 680px) { .event-thumb { width: 84px; min-height: 84px; } }
