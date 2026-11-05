@@ -82,6 +82,38 @@
     return node;
   }
 
+  // Flyer pop-out (lightbox): one shared overlay for every event card.
+  const flyerBox = document.createElement('div');
+  flyerBox.className = 'flyer-lightbox';
+  flyerBox.setAttribute('role', 'dialog');
+  flyerBox.setAttribute('aria-modal', 'true');
+  flyerBox.setAttribute('aria-label', 'Event flyer');
+  const flyerImg = document.createElement('img');
+  flyerImg.alt = 'Event flyer, full size';
+  const flyerClose = document.createElement('button');
+  flyerClose.type = 'button';
+  flyerClose.className = 'flyer-close';
+  flyerClose.textContent = '\u00d7';
+  flyerClose.setAttribute('aria-label', 'Close flyer');
+  flyerBox.appendChild(flyerImg);
+  flyerBox.appendChild(flyerClose);
+  document.body.appendChild(flyerBox);
+
+  function openFlyer(src) {
+    flyerImg.src = src;
+    flyerBox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFlyer() {
+    flyerBox.classList.remove('open');
+    document.body.style.overflow = '';
+    flyerImg.removeAttribute('src');
+  }
+  flyerBox.addEventListener('click', event => { if (event.target !== flyerImg) closeFlyer(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && flyerBox.classList.contains('open')) closeFlyer();
+  });
+
   function formatEvent(event, filter) {
     const card = document.createElement('article');
     card.className = 'live-event';
@@ -89,15 +121,6 @@
     const date = String(event.date ?? '').trim();
     const time = String(event.time ?? '').trim();
     const image = String(event.image ?? '').trim();
-    if (image) {
-      const img = document.createElement('img');
-      img.className = 'event-flyer';
-      img.src = driveImageUrl(image);
-      img.alt = '';
-      img.loading = 'lazy';
-      img.addEventListener('error', () => img.remove());
-      card.appendChild(img);
-    }
     const main = document.createElement('div');
     main.className = 'event-main';
     const row = document.createElement('div');
@@ -125,6 +148,17 @@
     const description = String(event.description ?? event.details ?? '').trim();
     if (description) addRichText(main, 'event-desc', description);
     card.appendChild(main);
+    if (image) {
+      const img = document.createElement('img');
+      img.className = 'event-flyer';
+      img.src = driveImageUrl(image);
+      img.alt = '';
+      img.loading = 'lazy';
+      img.title = 'Click to see the full flyer';
+      img.addEventListener('error', () => img.remove());
+      img.addEventListener('click', () => openFlyer(driveImageUrl(image).replace('sz=w1200', 'sz=w1600')));
+      card.appendChild(img);
+    }
     return card;
   }
 
