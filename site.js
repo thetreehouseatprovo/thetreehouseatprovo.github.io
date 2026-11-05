@@ -91,7 +91,7 @@
     const image = String(event.image ?? '').trim();
     if (image) {
       const img = document.createElement('img');
-      img.className = 'event-thumb';
+      img.className = 'event-flyer';
       img.src = driveImageUrl(image);
       img.alt = '';
       img.loading = 'lazy';
