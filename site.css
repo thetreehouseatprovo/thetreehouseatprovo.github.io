@@ -458,3 +458,11 @@
 .event-main { display: flex; flex-direction: column; gap: 10px; flex: 1 1 auto; min-width: 0; }
 .event-thumb { flex: 0 0 auto; width: 112px; height: auto; min-height: 112px; margin: -18px 0 -18px -18px; object-fit: cover; border-radius: 13px 0 0 13px; }
 @media (max-width: 680px) { .event-thumb { width: 84px; min-height: 84px; } }
+
+/* --- Descriptions: show the full text, no cut-off --- */
+.live-event .event-desc { display: block; -webkit-line-clamp: none; overflow: visible; }
+
+/* --- Cards: flyer across the top, whole image visible, description full width --- */
+.live-event { flex-direction: column; align-items: stretch; }
+.event-flyer { display: block; width: calc(100% + 36px); max-width: none; height: 210px; margin: -18px -18px 16px; object-fit: contain; background: #0b0b0f; border-radius: 13px 13px 0 0; }
+@media (max-width: 680px) { .event-flyer { height: 170px; } }
