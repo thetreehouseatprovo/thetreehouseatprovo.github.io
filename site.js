@@ -153,7 +153,18 @@
     if (!parsed && date && time) addText(body, 'p', 'event-time', date);
     if (time) addText(body, 'p', 'event-time', time);
     const location = String(event.location ?? '').trim();
-    if (location) addText(body, 'p', 'event-loc', location);
+    if (location) {
+      const locP = document.createElement('p');
+      locP.className = 'event-loc';
+      const locLink = document.createElement('a');
+      locLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(location);
+      locLink.target = '_blank';
+      locLink.rel = 'noopener noreferrer';
+      locLink.textContent = location;
+      locLink.title = 'Open in Google Maps';
+      locP.appendChild(locLink);
+      body.appendChild(locP);
+    }
     row.appendChild(body);
     main.appendChild(row);
     const description = String(event.description ?? event.details ?? '').trim();
