@@ -121,6 +121,17 @@
     const date = String(event.date ?? '').trim();
     const time = String(event.time ?? '').trim();
     const image = String(event.image ?? '').trim();
+    if (image) {
+      const img = document.createElement('img');
+      img.className = 'event-flyer';
+      img.src = driveImageUrl(image);
+      img.alt = '';
+      img.loading = 'lazy';
+      img.title = 'Click to see the full flyer';
+      img.addEventListener('error', () => img.remove());
+      img.addEventListener('click', () => openFlyer(driveImageUrl(image).replace('sz=w1200', 'sz=w1600')));
+      card.appendChild(img);
+    }
     const main = document.createElement('div');
     main.className = 'event-main';
     const row = document.createElement('div');
@@ -148,17 +159,6 @@
     const description = String(event.description ?? event.details ?? '').trim();
     if (description) addRichText(main, 'event-desc', description);
     card.appendChild(main);
-    if (image) {
-      const img = document.createElement('img');
-      img.className = 'event-flyer';
-      img.src = driveImageUrl(image);
-      img.alt = '';
-      img.loading = 'lazy';
-      img.title = 'Click to see the full flyer';
-      img.addEventListener('error', () => img.remove());
-      img.addEventListener('click', () => openFlyer(driveImageUrl(image).replace('sz=w1200', 'sz=w1600')));
-      card.appendChild(img);
-    }
     return card;
   }
 
