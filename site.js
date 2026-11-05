@@ -127,6 +127,15 @@
 
   function renderEvents(data) {
     eventCache = Array.isArray(data) ? data.filter(item => item && typeof item === 'object') : [];
+    // The feed arrives in date order, so the first card with a given title is
+    // the next time that event happens — hide any later repeats of that title.
+    const seenTitles = new Set();
+    eventCache = eventCache.filter(event => {
+      const key = String(event.name ?? event.title ?? '').trim().toLowerCase();
+      if (!key || seenTitles.has(key)) return !key;
+      seenTitles.add(key);
+      return true;
+    });
     document.querySelectorAll('[data-events-list]').forEach(container => {
       const filter = container.dataset.eventsList || 'all';
       const matcher = categoryMatches[filter];
