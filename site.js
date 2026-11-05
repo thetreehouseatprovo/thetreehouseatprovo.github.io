@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const EVENT_FEED = 'https://script.google.com/macros/s/AKfycbz-MVbEKOixXvHxcqZCfgEfyaKg3C3sYwlKzh0JCV9RnBfF1wYL__YjdyzsDVVaoTv2/exec';
+  const EVENT_FEED = 'https://script.google.com/macros/s/AKfycbzkfISwXktdQi0aKzObj2JObK9YSbH9-TmIukyiRLh2wfVguOL03ke41h10VMPq2ut5/exec';
   const REFRESH_MS = 5 * 60 * 1000;
   let eventCache = [];
   let lastActiveElement = null;
@@ -58,12 +58,48 @@
     return { month: MONTH_SHORT[month], day, weekday };
   }
 
+  function driveImageUrl(url) {
+    const match = String(url).match(/drive\.google\.com\/(?:open\?id=|file\/d\/|uc\?(?:[^#]*&)?id=)([A-Za-z0-9_-]+)/);
+    return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1200` : url;
+  }
+
+  function addRichText(parent, className, value) {
+    const node = document.createElement('p');
+    if (className) node.className = className;
+    String(value).split(/(https?:\/\/[^\s]+)/g).forEach(part => {
+      if (/^https?:\/\//.test(part)) {
+        const link = document.createElement('a');
+        link.href = part;
+        link.textContent = part.replace(/^https?:\/\/(www\.)?/, '');
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        node.appendChild(link);
+      } else if (part) {
+        node.appendChild(document.createTextNode(part));
+      }
+    });
+    parent.appendChild(node);
+    return node;
+  }
+
   function formatEvent(event, filter) {
     const card = document.createElement('article');
     card.className = 'live-event';
     const title = String(event.name ?? event.title ?? 'Tree House event').trim();
     const date = String(event.date ?? '').trim();
     const time = String(event.time ?? '').trim();
+    const image = String(event.image ?? '').trim();
+    if (image) {
+      const img = document.createElement('img');
+      img.className = 'event-photo-top';
+      img.src = driveImageUrl(image);
+      img.alt = '';
+      img.loading = 'lazy';
+      img.addEventListener('error', () => img.remove());
+      card.appendChild(img);
+    }
+    const row = document.createElement('div');
+    row.className = 'event-row';
     const parsed = parseEventDate(date);
     const badge = document.createElement('div');
     badge.className = 'event-date';
@@ -74,15 +110,18 @@
     } else {
       addText(badge, 'span', 'event-date-raw', date || 'TBA');
     }
-    card.appendChild(badge);
+    row.appendChild(badge);
     const body = document.createElement('div');
     body.className = 'event-body';
     addText(body, 'h3', '', title);
     if (!parsed && date && time) addText(body, 'p', 'event-time', date);
     if (time) addText(body, 'p', 'event-time', time);
+    const location = String(event.location ?? '').trim();
+    if (location) addText(body, 'p', 'event-loc', location);
     const description = String(event.description ?? event.details ?? '').trim();
-    if (description) addText(body, 'p', 'event-desc', description);
-    card.appendChild(body);
+    if (description) addRichText(body, 'event-desc', description);
+    row.appendChild(body);
+    card.appendChild(row);
     return card;
   }
 
