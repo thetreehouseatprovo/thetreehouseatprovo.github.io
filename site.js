@@ -89,15 +89,6 @@
     const date = String(event.date ?? '').trim();
     const time = String(event.time ?? '').trim();
     const image = String(event.image ?? '').trim();
-    if (image) {
-      const img = document.createElement('img');
-      img.className = 'event-photo-top';
-      img.src = driveImageUrl(image);
-      img.alt = '';
-      img.loading = 'lazy';
-      img.addEventListener('error', () => img.remove());
-      card.appendChild(img);
-    }
     const row = document.createElement('div');
     row.className = 'event-row';
     const parsed = parseEventDate(date);
@@ -121,6 +112,15 @@
     const description = String(event.description ?? event.details ?? '').trim();
     if (description) addRichText(body, 'event-desc', description);
     row.appendChild(body);
+    if (image) {
+      const img = document.createElement('img');
+      img.className = 'event-thumb';
+      img.src = driveImageUrl(image);
+      img.alt = '';
+      img.loading = 'lazy';
+      img.addEventListener('error', () => img.remove());
+      row.appendChild(img);
+    }
     card.appendChild(row);
     return card;
   }
