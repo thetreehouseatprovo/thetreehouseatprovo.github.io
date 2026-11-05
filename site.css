@@ -432,3 +432,23 @@
 .live-event .event-loc { margin: 0 0 6px; color: #c4a8ff; font-size: .84rem; font-weight: 700; line-height: 1.45; }
 .live-event .event-desc { white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .live-event .event-desc a { color: var(--lime); }
+
+/* --- Cards: slightly bigger text, small photo thumbnail --- */
+.live-event h3 { font-size: 1.3rem; }
+.event-date { width: 74px; padding: 11px 0 9px; }
+.event-date-month { font-size: .7rem; }
+.event-date-day { font-size: 1.85rem; }
+.event-date-weekday { font-size: .7rem; }
+.live-event .event-time { font-size: .97rem; }
+.live-event .event-loc { font-size: .92rem; }
+.live-event .event-desc { font-size: .96rem; line-height: 1.6; }
+.event-body { flex: 1 1 auto; }
+.event-thumb { flex: 0 0 auto; width: 94px; height: 94px; object-fit: cover; border-radius: 10px; }
+@media (max-width: 680px) { .event-thumb { width: 74px; height: 74px; } }
+
+/* --- Instagram updates block: its own section, unmistakably Instagram --- */
+.updates-section { padding-top: 46px; padding-bottom: 4px; }
+.updates { position: relative; padding: 28px; border-radius: 14px; overflow: hidden; }
+.updates::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); }
+.ig-button { white-space: normal; text-align: center; }
+.ig-button svg { flex: 0 0 auto; }
