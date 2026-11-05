@@ -89,6 +89,17 @@
     const date = String(event.date ?? '').trim();
     const time = String(event.time ?? '').trim();
     const image = String(event.image ?? '').trim();
+    if (image) {
+      const img = document.createElement('img');
+      img.className = 'event-thumb';
+      img.src = driveImageUrl(image);
+      img.alt = '';
+      img.loading = 'lazy';
+      img.addEventListener('error', () => img.remove());
+      card.appendChild(img);
+    }
+    const main = document.createElement('div');
+    main.className = 'event-main';
     const row = document.createElement('div');
     row.className = 'event-row';
     const parsed = parseEventDate(date);
@@ -109,19 +120,11 @@
     if (time) addText(body, 'p', 'event-time', time);
     const location = String(event.location ?? '').trim();
     if (location) addText(body, 'p', 'event-loc', location);
-    const description = String(event.description ?? event.details ?? '').trim();
-    if (description) addRichText(body, 'event-desc', description);
     row.appendChild(body);
-    if (image) {
-      const img = document.createElement('img');
-      img.className = 'event-thumb';
-      img.src = driveImageUrl(image);
-      img.alt = '';
-      img.loading = 'lazy';
-      img.addEventListener('error', () => img.remove());
-      row.appendChild(img);
-    }
-    card.appendChild(row);
+    main.appendChild(row);
+    const description = String(event.description ?? event.details ?? '').trim();
+    if (description) addRichText(main, 'event-desc', description);
+    card.appendChild(main);
     return card;
   }
 
